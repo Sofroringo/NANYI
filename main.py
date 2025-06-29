@@ -12,11 +12,14 @@ def test():
     print('欢迎使用音频节奏与节拍分析工具')
     print('输入文件路径后按回车键开始分析')
 
-    tmp_path = input(':')
-    # if not input
-    if not tmp_path:
-        print('未输入文件路径，程序退出')
-        return
+    # tmp_path = input(':')
+    # # if not input
+    # if not tmp_path:
+    #     print('未输入文件路径，程序退出')
+    #     return
+
+    tmp_path = '/Users/sofroringo/Desktop/nanyi/audios/mu1.mp3'
+
 
     # if file not exists
     if not os.path.exists(tmp_path):
@@ -52,6 +55,29 @@ def test():
                linestyle='--', label='Beats')
     ax[1].legend()
 
+
+
+    # 乐谱化信息
+    s = m21.stream.Stream()
+    # 设置乐谱的速度
+    s.insert(0, m21.tempo.MetronomeMark(number=tempo))
+    # 设置乐谱的拍号
+    s.insert(0, m21.meter.TimeSignature('4/4'))  # 设置为四四拍
+    for i in onset_env:
+        if i > 0:
+            note = m21.note.Note(quarterLength=0.125)
+        else:
+            note = m21.note.Rest(quarterLength=0.125)
+        s.append(note)
+    # 保存乐谱为MIDI文件
+    midi_path = f'/Users/sofroringo/Desktop/nanyi/midi/节奏与节拍分析{timeinfo}.mid'
+    s.write('midi', fp=midi_path)
+    print(f'乐谱已保存到: {midi_path}')
+    #
+    s.show()
+
+
+
     # save img to local
     plt.savefig(save_path)
     print('分析结果已保存到: {save_path}')
@@ -60,9 +86,6 @@ def test():
     print('显示分析结果...')
     plt.show()
     print('分析完成！')
-    
-    # 乐谱化信息
-    # 几几拍
     
 
 
