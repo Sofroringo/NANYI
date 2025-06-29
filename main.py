@@ -71,7 +71,7 @@ def test():
     midi_path = f'./midi/节奏与节拍分析{timeinfo}.mid'
     s.write('midi', fp=midi_path)
     print(f'乐谱已保存到: {midi_path}')
-    #
+    # 显示乐谱
     s.show()
 
 
