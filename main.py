@@ -12,13 +12,11 @@ def test():
     print('欢迎使用音频节奏与节拍分析工具')
     print('输入文件路径后按回车键开始分析')
 
-    # tmp_path = input(':')
-    # # if not input
-    # if not tmp_path:
-    #     print('未输入文件路径，程序退出')
-    #     return
-
-    tmp_path = '/Users/sofroringo/Desktop/nanyi/audios/mu1.mp3'
+    tmp_path = input(':')
+    # if not input
+    if not tmp_path:
+        print('未输入文件路径，程序退出')
+        return
 
 
     # if file not exists
@@ -29,7 +27,7 @@ def test():
 
     timeinfo = datetime.datetime.now()
     timeinfo = timeinfo.strftime('%Y-%m-%d %H:%M:%S')
-    save_path = f'/Users/sofroringo/Desktop/nanyi/imgs/节奏与节拍分析{timeinfo}.png'
+    save_path = f'./节奏与节拍分析{timeinfo}.png'
     print(f'文件路径是:{tmp_path}')
     print(f'分析结果将保存到:{save_path}')
     print('正在分析音频节奏与节拍信息...')
@@ -70,7 +68,7 @@ def test():
             note = m21.note.Rest(quarterLength=0.125)
         s.append(note)
     # 保存乐谱为MIDI文件
-    midi_path = f'/Users/sofroringo/Desktop/nanyi/midi/节奏与节拍分析{timeinfo}.mid'
+    midi_path = f'./节奏与节拍分析{timeinfo}.mid'
     s.write('midi', fp=midi_path)
     print(f'乐谱已保存到: {midi_path}')
     #
