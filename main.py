@@ -27,7 +27,7 @@ def test():
 
     timeinfo = datetime.datetime.now()
     timeinfo = timeinfo.strftime('%Y-%m-%d %H:%M:%S')
-    save_path = f'./节奏与节拍分析{timeinfo}.png'
+    save_path = f'./img/节奏与节拍分析{timeinfo}.png'
     print(f'文件路径是:{tmp_path}')
     print(f'分析结果将保存到:{save_path}')
     print('正在分析音频节奏与节拍信息...')
@@ -48,7 +48,7 @@ def test():
     ax[0].label_outer()
     ax[0].set(title=f'{tmp_path}\n')
     ax[1].plot(times, librosa.util.normalize(onset_env),
-             label='Onset strength')
+             label='Rhythm peaks')
     ax[1].vlines(times[beats], 0, 1, alpha=0.5, color='r',
                linestyle='--', label='Beats')
     ax[1].legend()
@@ -60,7 +60,7 @@ def test():
     # 设置乐谱的速度
     s.insert(0, m21.tempo.MetronomeMark(number=tempo))
     # 设置乐谱的拍号
-    s.insert(0, m21.meter.TimeSignature('4/4'))  # 设置为四四拍
+    s.insert(0, m21.meter.TimeSignature('4/4'))
     for i in onset_env:
         if i > 0:
             note = m21.note.Note(quarterLength=0.125)
@@ -68,7 +68,7 @@ def test():
             note = m21.note.Rest(quarterLength=0.125)
         s.append(note)
     # 保存乐谱为MIDI文件
-    midi_path = f'./节奏与节拍分析{timeinfo}.mid'
+    midi_path = f'./midi/节奏与节拍分析{timeinfo}.mid'
     s.write('midi', fp=midi_path)
     print(f'乐谱已保存到: {midi_path}')
     #
@@ -88,6 +88,10 @@ def test():
 
 
 if __name__ == '__main__':
+    if not os.path.exists('./img'):
+        os.makedirs('./img')
+    if not os.path.exists('./midi'):
+        os.makedirs('./midi')
     fire.Fire(test)
 
 
